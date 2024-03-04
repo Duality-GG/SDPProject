@@ -1,0 +1,288 @@
+#:import utils kivy.utils
+#:import Factory kivy.factory.Factory
+#notes
+
+#size_hint_y refers to the sizing of the height of the widget proportion to the program
+
+<ColoredLabel@Label>:
+    color: utils.get_color_from_hex('#FFFFFF')
+    size_hint_y: None
+    height: '48dp'
+
+<SettingsTextInput@TextInput>:
+    multiline: False
+    padding_y: (self.height - self.line_height) / 2
+    size_hint_y: None
+    height: '48dp'
+    background_normal: ''
+    background_color: utils.get_color_from_hex('#303030')
+    foreground_color: utils.get_color_from_hex('#AEFFFF')
+
+ScreenManager:
+    MainScreen:
+    FirstScreen:
+    SecondScreen:
+    ThirdScreen:
+    SettingsScreen:
+
+<CustomButton@Button>:
+    background_color: (0, 0, 0, 0)  # remove default background
+    canvas.before:
+        Color:
+            rgba: (0.2, 0.6, 0.8, 1)  # Set your desired background color
+        RoundedRectangle:
+            size: self.size
+            pos: self.pos
+            radius: [10]  # Adjust for rounded corners
+
+<MainScreen>:
+    FloatLayout:
+        Image:
+            source: 'C://Users/Tommy/Downloads/ClassesSeniorYear/SDP/mainlab/images/nasa.jpg'
+            allow_stretch: True
+            keep_ratio: False
+            size_hint: 1, 1
+    BoxLayout:
+        orientation: 'vertical'
+        # Container for logos
+        # Title label at the top
+        Label:
+            text: 'UMass Amherst Team 05 SDP'
+            size_hint_y: None
+            height: '48dp'
+            font_size: '20sp'
+
+        # Spacer to fill the space between the title and buttons
+        Widget:
+            size_hint_y: 1
+
+        # AnchorLayout for the buttons at the bottom
+        AnchorLayout:
+            anchor_x: 'center'
+            anchor_y: 'bottom'
+
+            GridLayout:
+                cols: 2
+                size_hint: None, None
+                size: '400dp', '150dp'  # Adjust size as needed
+                padding: 5
+                spacing: 10
+
+                CustomButton:
+                    text: 'Constellation'
+                    on_release: app.root.current = 'first'
+
+                CustomButton:
+                    text: 'Presets'
+                    on_release: app.root.current = 'second'
+
+                CustomButton:
+                    text: 'Freelook'
+                    on_release: app.root.current = 'third'
+
+                CustomButton:
+                    text: 'User Inputs'
+                    on_release: app.root.current = 'settings'                
+                # Add more buttons as needed
+
+<CustomButton@Button>:
+    background_color: 0, 0, 0, 0  # Transparent background
+    background_normal: ''
+    canvas.before:
+        Color:
+            rgba: 0.2, 0.6, 0.8, 1  # Set your desired background color
+        RoundedRectangle:
+            size: self.size
+            pos: self.pos
+            radius: [8]  # Rounded corners
+
+<FirstScreen>:
+##constellation screen
+    FloatLayout:
+        Image:
+            source: 'C://Users/Tommy/Downloads/ClassesSeniorYear/SDP/mainlab/images/nasa4.jpg'
+            allow_stretch: True
+            keep_ratio: False
+            size_hint: 1, 1
+    BoxLayout:
+        orientation: 'vertical'
+        # Back Button at the top
+        BoxLayout:
+            size_hint_y: None
+            height: '28dp'
+            Button:
+                text: '< Back'
+                size_hint_x: None
+                width: '50dp'
+                on_release: app.root.current = 'main'
+
+        # GridLayout for constellations
+        GridLayout:
+            cols: 2
+            spacing: 3
+            padding: 25
+        # Constellation 1
+        BoxLayout:
+            orientation: 'vertical'
+            ImageButton:
+                source: 'C://Users/Tommy/Downloads/ClassesSeniorYear/SDP/mainlab/images/HR1361.png'
+                allow_stretch: True
+                on_press: root.display_coordinates('Right Ascension: 04h 00m 40s, Declination (Degrees): +12° 29’ 25"')
+                keep_ratio: True
+            Label:
+                text: 'Constellation 1 -- lambda Tauri'
+            # CustomButton:
+            #     text: 'test'
+            #     on_press: root.display_coordinates('# of Exposures: 5, Length: 4 secs')
+
+
+        # Constellation 2
+        BoxLayout:
+            orientation: 'vertical'
+            Image:
+                source: 'C://Users/Tommy/Downloads/ClassesSeniorYear/SDP/mainlab/images/Tauri-Star.png'
+                allow_stretch: True
+            Label:
+                text: 'Constellation 2 -- alpha Tauri'
+
+        # # Constellation 3
+        # BoxLayout:
+        #     orientation: 'vertical'
+        #     Image:
+        #         source: 'path/to/constellation3.jpg'
+        #         allow_stretch: True
+        #     Label:
+        #         text: 'Constellation 3'
+
+<CustomButton@Button>:
+    background_color: 0, 0, 0, 0  # Transparent background
+    background_normal: ''
+    canvas.before:
+        Color:
+            rgba: 0.2, 0.6, 0.8, 1  # Set your desired background color
+        RoundedRectangle:
+            size: self.size
+            pos: self.pos
+            radius: [8]  # Rounded corners
+
+<SecondScreen>:
+    FloatLayout:
+        Image:
+            source: 'C://Users/Tommy/Downloads/ClassesSeniorYear/SDP/mainlab/images/nasa4.jpg'
+            allow_stretch: True
+            keep_ratio: False
+            size_hint: 1, 1
+    BoxLayout:
+        orientation: 'vertical'
+        spacing: '10dp'
+        padding: '10dp'
+
+        ImageButton:
+            source: 'C://Users/Tommy/Downloads/ClassesSeniorYear/SDP/mainlab/images/sampleimage2.png'
+            on_press: root.display_coordinates('Right Ascension: 0, Declination (Degrees): 38')
+            allow_stretch: True
+            keep_ratio: True
+
+        CustomButton:
+            text: 'Start Preset 1'
+            on_press: root.display_coordinates('# of Exposures: 5, Length: 4 secs')
+            on_press: root.copy_to_clipboard('# of Exposures: 5, Length: 4 secs')
+        # Additional ImageButton widgets...
+
+        CustomButton:
+            text: 'Back'
+            on_release: app.root.current = 'main'
+
+<ThirdScreen>:
+    FloatLayout:
+        Image:
+            source: 'C://Users/Tommy/Downloads/ClassesSeniorYear/SDP/mainlab/images/nasa4.jpg'
+            allow_stretch: True
+            keep_ratio: False
+            size_hint: 1, 1
+    BoxLayout:
+        orientation: 'vertical'
+
+        # Top part including the Back button and Start/Stop Camera
+        BoxLayout:
+            size_hint_y: None
+            height: '48dp'
+            orientation: 'horizontal'
+
+            CustomButton:
+                text: '< Back'
+                on_release: app.root.current = 'main'
+                size_hint_x: None
+                width: '100dp'
+
+            CustomButton:
+                text: 'Start FreeLook Camera'
+                on_press: root.start_camera()
+                size_hint_x: 1
+
+            CustomButton:
+                text: 'Stop FreeLook Camera'
+                on_press: root.stop_camera()
+                size_hint_x: 1
+
+        # Middle part for Camera View
+        BoxLayout:
+            size_hint_y: 0.5
+            Image:
+                id: camera_image
+                allow_stretch: True
+
+        # Bottom part for directional buttons in a grid
+        GridLayout:
+            cols: 3
+            size_hint_y: None
+            height: '96dp'
+
+            Widget:  # Empty widget for spacing
+            CustomButton:
+                text: 'Up'
+                on_press: root.move_up()
+            Widget:  # Empty widget for spacing
+
+            CustomButton:
+                text: 'Left'
+                on_press: root.move_left()
+            Widget:  # Placeholder for center
+            CustomButton:
+                text: 'Right'
+                on_press: root.move_right()
+
+            Widget:  # Empty widget for spacing
+            CustomButton:
+                text: 'Down'
+                on_press: root.move_down()
+            Widget:  # Empty widget for spacing
+
+<SettingsScreen>:
+    FloatLayout:
+        Image:
+            source: 'C://Users/Tommy/Downloads/ClassesSeniorYear/SDP/mainlab/images/nasa4.jpg'
+            allow_stretch: True
+            keep_ratio: False
+            size_hint: 1, 1
+    BoxLayout:
+        orientation: 'vertical'
+        spacing: '10dp'
+        padding: '10dp'
+
+        ImageButton:
+            source: 'C://Users/Tommy/Downloads/ClassesSeniorYear/SDP/mainlab/images/sampleimage2.png'
+            on_press: root.display_coordinates('Right Ascension: 0, Declination (Degrees): 38')
+            allow_stretch: True
+            keep_ratio: True
+
+        CustomButton:
+            text: 'Start Preset 1'
+            on_press: root.display_coordinates('# of Exposures: 5, Length: 4 secs')
+            on_press: root.copy_to_clipboard('# of Exposures: 5, Length: 4 secs')
+        # Additional ImageButton widgets...
+
+        CustomButton:
+            text: 'Back'
+            on_release: app.root.current = 'main'
+            
